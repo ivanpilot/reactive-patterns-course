@@ -25,7 +25,7 @@ export class EventBusExperimentsComponent implements OnInit {
 
             store.addLesson(newLesson);
 
-        }, 10000);
+        }, 4000);
 
     }
 
