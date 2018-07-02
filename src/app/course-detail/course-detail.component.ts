@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Course} from "../shared/model/course";
 import {Lesson} from "../shared/model/lesson";
 import * as _ from 'lodash';
+// import { Observable } from 'rxjs';
 import {CoursesService} from '../services/courses.service';
 
 
@@ -16,6 +17,8 @@ export class CourseDetailComponent implements OnInit {
 
   course: Course;
   lessons: Lesson[];
+  // course$: Observable<Course>;
+  // lessons$: Observable<Lesson[]>;
 
   constructor(
         private route: ActivatedRoute,

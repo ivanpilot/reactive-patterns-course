@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {Lesson} from "../shared/model/lesson";
 import * as _ from 'lodash';
 import {store} from "../event-bus-experiments/app-data";
@@ -9,39 +9,40 @@ import {Observer} from 'rxjs';
     templateUrl: './lessons-list.component.html',
     styleUrls: ['./lessons-list.component.css']
 })
-export class LessonsListComponent implements Observer<Lesson[]>, OnInit {
+export class LessonsListComponent implements OnInit {
 
-    lessons: Lesson[] = [];
+    @Input() lessons: Lesson[]
+    constructor(){}
 
-    ngOnInit() {
-        store.lessonsList$.subscribe(this);
-    }
+    ngOnInit(){}
+    // lessons: Lesson[] = [];
 
-    next(data: Lesson[]) {
-        console.log('Lessons list component received data ..');
-        this.lessons = data;
-    }
+    // ngOnInit() {
+    //     store.lessonsList$.subscribe(this);
+    // }
 
-    error(err: any)  {
-        console.error(err);
-    };
+    // next(data: Lesson[]) {
+    //     console.log('Lessons list component received data ..');
+    //     this.lessons = data;
+    // }
 
-
-    complete() {
-        console.log('completed');
-    };
-
-    toggleLessonViewed(lesson:Lesson) {
-        console.log('toggling lesson ...');
-        store.toggleLessonViewed(lesson);
-    }
-
-    delete(deleted:Lesson) {
-        store.deleteLesson(deleted);
-    }
+    // error(err: any)  {
+    //     console.error(err);
+    // };
 
 
+    // complete() {
+    //     console.log('completed');
+    // };
 
+    // toggleLessonViewed(lesson:Lesson) {
+    //     console.log('toggling lesson ...');
+    //     store.toggleLessonViewed(lesson);
+    // }
+
+    // delete(deleted:Lesson) {
+    //     store.deleteLesson(deleted);
+    // }
 }
 
 
