@@ -18,6 +18,7 @@ import { CoursesListComponent } from './courses-list/courses-list.component';
 import { CourseDetailHeaderComponent } from './course-detail-header/course-detail-header.component';
 import { NewsletterComponent } from './newsletter/newsletter.component';
 import {NewsletterService} from "./services/newsletter.service"; 
+import {UserService} from "./services/user.service"; 
 import { TopMenuComponent } from './top-menu/top-menu.component';
 import { LoginComponent } from './login/login.component';
 import {AngularFireDatabaseModule} from "angularfire2/database";
@@ -49,7 +50,8 @@ import {AngularFireAuthModule} from "angularfire2/auth";
   ],
   providers: [
       CoursesService,
-      NewsletterService
+      NewsletterService,
+      UserService
   ],
   bootstrap: [AppComponent]
 })
