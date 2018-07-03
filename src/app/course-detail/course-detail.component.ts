@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 import {CoursesService} from "../services/courses.service";
 import {NewsletterService} from "../services/newsletter.service";
 import {UserService} from "../services/user.service";
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -15,41 +16,38 @@ import {UserService} from "../services/user.service";
 })
 export class CourseDetailComponent implements OnInit {
 
-  course: Course;
-  lessons: Lesson[];
+  // course: Course;
+  // lessons: Lesson[];
+  course$: Observable<Course>;
+  lessons$: Observable<Lesson[]>;
 
-  constructor(private route: ActivatedRoute,
-              private coursesService: CoursesService,
-              private newsletterService: NewsletterService,
-              private userService:UserService) {
+  constructor(
+    private route: ActivatedRoute,
+    private coursesService: CoursesService,
+    private newsletterService: NewsletterService,
+    private userService:UserService
+  ) {}
 
+  ngOnInit() {
+    this.course$ = this.route.params
+      .switchMap(params => this.coursesService.findCourseByUrl(params['id']))
+      .first()
+      .publishLast().refCount()
+    
+    this.lessons$ = this.course$
+      .switchMap(course => this.coursesService.findLessonsForCourse(course.id))
+      .first()
+      .publishLast().refCount()
   }
 
   onSubscribe(email:string) {
-      this.newsletterService.subscribeToNewsletter(email)
-          .subscribe(
-              () => {
-                  alert('Subscription successful ...');
-              },
-              console.error
-          );
-  }
-
-  ngOnInit() {
-      this.route.params
-          .subscribe( params => {
-
-              const courseUrl = params['id'];
-
-              this.coursesService.findCourseByUrl(courseUrl)
-                  .subscribe(data => {
-                      this.course = data;
-
-                      this.coursesService.findLessonsForCourse(this.course.id)
-                          .subscribe(lessons => this.lessons = lessons);
-                  });
-
-          });
+    this.newsletterService.subscribeToNewsletter(email)
+      .subscribe(
+        () => {
+            alert('Subscription successful ...');
+        },
+        console.error
+      );
   }
 
 }
