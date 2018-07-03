@@ -18,10 +18,12 @@ export class CourseDetailComponent implements OnInit {
   course: Course;
   lessons: Lesson[];
 
-  constructor(private route: ActivatedRoute,
-              private coursesService: CoursesService,
-              private newsletterService: NewsletterService,
-              private userService: UserService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private coursesService: CoursesService,
+    private newsletterService: NewsletterService,
+    private userService: UserService
+  ) {}
 
   onSubscribe(email:string) {
       this.newsletterService.subscribeToNewsletter(email)
